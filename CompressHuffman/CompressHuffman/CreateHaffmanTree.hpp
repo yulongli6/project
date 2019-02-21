@@ -1,59 +1,62 @@
 #pragma once
 #include"FileCompressHaffman.h"
-#include<vector>
 #include<queue>
 
 template<class T>
 struct HaffmanTreeNode
 {
-	HaffmanTreeNode(T val)
+	HaffmanTreeNode(const T& val)
 	:_val(val)
 	, pLeft(nullptr)
 	, pRight(nullptr)
 	, pParent(nullptr)
 	{}
 	T _val;
-	HaffmanTreeNode* pLeft;
-	HaffmanTreeNode* pRight;
-	HaffmanTreeNode* pParent;
+	HaffmanTreeNode<T>* pLeft;
+	HaffmanTreeNode<T>* pRight;
+	HaffmanTreeNode<T>* pParent;
 };
 
 template<class T>
 class CreateHaffmanTree
 {
-public:
 	typedef HaffmanTreeNode<T> Node;
 	typedef Node* pNode;
+public:
+
 	CreateHaffmanTree()
-		:pLeft(nullptr)
-		,pRight(nullptr)
-		,pParent(nullptr)
+		:pRoot(nullptr)
 	{}
 
 	void GetHaffmanTree(std::vector<T>& v)
 	{
+		if (v.empty())
+			return;
 		std::priority_queue < pNode, std::vector<pNode>, cmp> q;
 		for (size_t i = 0; i < v.size(); ++i)
 		{
 			if (v[i]._count != 0)
 			{
-				pNode * node = new Node(v[i]);
+				pNode node = new Node(v[i]);
 				q.push(node);
 			}
 		}
 
-		pNode parent = nullptr;
 		while (q.size() > 1)
 		{
-			pNode left = q.top;
+			
+			pNode left = q.top();
 			q.pop();
-			pNode right = q.top;
+			pNode right = q.top();
 			q.pop();
-			parent = new Node(left->_val + right->_val);
+
+			pNode parent = new Node(left->_val + right->_val);
+			
 			parent->pLeft = left;
-			parent->right = right;
+			parent->pRight = right;
 			left->pParent = parent;
 			right->pParent = parent;
+			
 			q.push(parent);
 		}
 		pRoot = q.top();
@@ -82,8 +85,8 @@ private:
 		if (nullptr == root)
 			return;
 
-		Destory(root->_pLeft);
-		Destory(root->_pRight);
+		Destroy(root->pLeft);
+		Destroy(root->pRight);
 		delete root;
 		root = nullptr;
 	}

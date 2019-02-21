@@ -2,6 +2,7 @@
 #include"CreateHaffmanTree.hpp"
 #include<errno.h>
 
+
 void GetHaffmanCode(HaffmanTreeNode<CharInfo>* root, std::vector<CharInfo>& info)
 {
 	if (nullptr == root)
@@ -126,7 +127,7 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 			count++;
 	}
 	char buff[33];
-	itoa(count, buff, 10);
+	_itoa(count, buff, 10);
 	fwrite(buff, 1, strlen(buff), pOut);
 	fputc('\n', pOut);
 
@@ -135,7 +136,7 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 		if (info[i]._count != 0)
 		{
 			char buff1[33];
-			itoa(info[i]._count, buff1, 10);
+			_itoa(info[i]._count, buff1, 10);
 			fputc(info[i]._ch, pOut);
 			fputc(',', pOut);
 			fwrite(buff1, 1, strlen(buff1), pOut);
@@ -147,8 +148,65 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 }
 
 
+void FileCompressHaffman::UnCompressHaffman(const std::string& Fileofpath)
+{
+	//检测文件的后缀
+	std::string strPosFix = Fileofpath.substr(Fileofpath.rfind('.'));
+	if (".hzp" != strPosFix)
+	{
+		cout << "压缩文件格式有问题" << endl;
+		return;
+	}
+
+	//获取解压缩的信息
+	FILE* pIn = fopen(Fileofpath.c_str(), "r");
+	if (nullptr == pIn)
+	{
+		cout << "打开文件失败" << endl;
+		return;
+	}
+
+
+	//获取源文件后缀
+	strPosFix = "";
+	GetLine(pIn, strPosFix);
+
+	string strLine;
+	GetLine(pIn, strLine);
+	size_t lineCount = atoi(strLine.c_str());
+
+	//字符信息
+	std::vector<CharInfo> info(256);
+	for (size_t i = 0; i < info.size(); ++i)
+	{
+		info[i]._ch = i;
+	}
+
+	for (size_t i = 0; i < lineCount; ++i)
+	{
+		strLine = "";
+		GetLine(pIn, strLine);
+		info[strLine[0]]._count = atoi(strLine.c_str() + 2);
+	}
+
+	//创建哈夫曼树
+	CreateHaffmanTree<CharInfo> hf;
+	hf.GetHaffmanTree(info);
+}
+
+void FileCompressHaffman::GetLine(FILE* pIn, std::string& strAceve)
+{
+	while (!feof(pIn))
+	{
+		char ch = fgetc(pIn);
+		if ('\n' == ch)
+			return;
+		strAceve += ch;
+	}
+}
+
 int main()
 {
 	FileCompressHaffman hf;
-	hf.CompressHaffman("1.text");
+	hf.CompressHaffman("1.txt");
 }
