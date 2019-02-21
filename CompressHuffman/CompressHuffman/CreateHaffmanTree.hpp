@@ -90,6 +90,7 @@ private:
 		delete root;
 		root = nullptr;
 	}
+private:
 	pNode pRoot;
 };
 

@@ -76,7 +76,7 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 {
 	//1. 打开被压缩文件，获取文件中每个字符串出现的总次数。
 
-	FILE * pIn = fopen(Fileofpath.c_str(), "rb");
+	FILE * pIn = fopen(Fileofpath.c_str(), "r");
 	if (pIn == nullptr)
 	{
 		perror("open file for read");
@@ -114,7 +114,7 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 	string FileName = Fileofpath.substr(0,Fileofpath.find('.'));
 	FileName += ".hzp";
 
-	FILE* pOut = fopen(FileName.c_str(), "wb");
+	FILE* pOut = fopen(FileName.c_str(), "w");
 	if (nullptr == pOut)
 	{
 		perror("open file for write");
@@ -183,7 +183,7 @@ void FileCompressHaffman::UNCompressHaffman(const std::string& Fileofpath)
 	}
 
 	//获取解压缩的信息
-	FILE* pIn = fopen(Fileofpath.c_str(), "rb");
+	FILE* pIn = fopen(Fileofpath.c_str(), "r");
 	if (nullptr == pIn)
 	{
 		cout << "打开文件失败" << endl;
@@ -225,7 +225,7 @@ void FileCompressHaffman::UNCompressHaffman(const std::string& Fileofpath)
 	//解压缩
 	string strUNComFile = "2";
 	strUNComFile += strPosFix;
-	FILE* pOut = fopen(strUNComFile.c_str(), "wb");
+	FILE* pOut = fopen(strUNComFile.c_str(), "w");
 	assert(pOut);
 
 	char rdBuff[1024];
@@ -280,6 +280,6 @@ void FileCompressHaffman::GetLine(FILE* pIn, std::string& strAceve)
 int main()
 {
 	FileCompressHaffman hf;
-	hf.CompressHaffman("1.jpg");
+	//hf.CompressHaffman("1.txt");
 	hf.UNCompressHaffman("1.hzp");
 }

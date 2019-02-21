@@ -5,6 +5,10 @@
 #include"CreateHaffmanTree.hpp"
 using namespace std;
 
+typedef unsigned char UCH;
+
+
+//权值的信息：字符、编码、统计个数
 struct CharInfo
 {
 	CharInfo(int count = 0)
@@ -18,7 +22,7 @@ struct CharInfo
 		return temp;
 	}
 
-	char _ch;
+	UCH _ch;
 	long long _count;
 	string CharCode;
 };
@@ -27,7 +31,8 @@ class FileCompressHaffman
 {
 public:
 	void CompressHaffman(const string& Fileofpath);
-	void UnCompressHaffman(const string& Fileofpath);
+	void UNCompressHaffman(const string& Fileofpath);
+	void CompressFile(FILE* pIn, FILE* pOut, std::vector<CharInfo>& info);
 private:
 	void GetHaffmanCode(HaffmanTreeNode<CharInfo>* root, vector<CharInfo>& info);
 	void GetLine(FILE* pIn, string& strAceve);
