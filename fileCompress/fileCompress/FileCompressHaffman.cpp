@@ -37,7 +37,7 @@ void FileCompressHaffman::CompressFile(FILE* pIn, FILE* pOut, std::vector<CharIn
 	char bitCount = 0;
 	while (true)
 	{
-		
+
 		size_t rSize = fread(pRead, 1, 1024, pIn);
 		if (rSize == 0)
 			break;
@@ -55,19 +55,19 @@ void FileCompressHaffman::CompressFile(FILE* pIn, FILE* pOut, std::vector<CharIn
 					fputc(ch, pOut);
 					bitCount = 0;
 				}
-				
+
 			}
 		}
 
 	}
-	
+
 	if (bitCount < 8 && bitCount > 0)
 	{
 		ch <<= (8 - bitCount);
 		fputc(ch, pOut);
 	}
 
-	
+
 
 }
 
@@ -102,7 +102,7 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 			info[pRead[i]]._count++;
 		}
 	}
-	
+
 	//2. 以每个字符出现的总次数为权值构建huffman树。
 	CreateHaffmanTree<CharInfo> hf;
 	hf.GetHaffmanTree(info);
@@ -110,8 +110,8 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 	GetHaffmanCode(hf.GetRoot(), info);
 	//4. 读取源文件，对源文件中的每个字符使用获取的huffman编码进行改写，
 	//将改写结果写到压缩文件中，直到文件结束。
-	
-	string FileName = Fileofpath.substr(0,Fileofpath.find('.'));
+
+	string FileName = Fileofpath.substr(0, Fileofpath.find('.'));
 	FileName += ".hzp";
 
 	FILE* pOut = fopen(FileName.c_str(), "wb");
@@ -159,7 +159,7 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 			fputc(',', pOut);
 			fwrite(buff1, 1, strlen(buff1), pOut);
 			fputc('\n', pOut);
-		} 
+		}
 	}
 
 	//把正文的压缩写入文件
@@ -280,6 +280,6 @@ void FileCompressHaffman::GetLine(FILE* pIn, std::string& strAceve)
 int main()
 {
 	FileCompressHaffman hf;
-	hf.CompressHaffman("1.jpg");
+	hf.CompressHaffman("1.cpp");
 	hf.UNCompressHaffman("1.hzp");
 }

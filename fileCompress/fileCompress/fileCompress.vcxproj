@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C71ACEAE-AB1F-43DD-B95F-A84546FE94D2}</ProjectGuid>
+    <ProjectGuid>{DA21F345-3C91-4048-AC52-1FC6BDBA9DBD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CompressHuffman</RootNamespace>
+    <RootNamespace>fileCompress</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClInclude Include="CreateHaffmanTree.hpp" />
     <ClInclude Include="FileCompressHaffman.h" />
+    <ClInclude Include="Lz77.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileCompressHaffman.cpp" />

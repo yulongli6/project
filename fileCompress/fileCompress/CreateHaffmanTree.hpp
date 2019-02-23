@@ -44,19 +44,19 @@ public:
 
 		while (q.size() > 1)
 		{
-			
+
 			pNode left = q.top();
 			q.pop();
 			pNode right = q.top();
 			q.pop();
 
 			pNode parent = new Node(left->_val + right->_val);
-			
+
 			parent->pLeft = left;
 			parent->pRight = right;
 			left->pParent = parent;
 			right->pParent = parent;
-			
+
 			q.push(parent);
 		}
 		pRoot = q.top();
@@ -93,6 +93,7 @@ private:
 private:
 	pNode pRoot;
 };
+
 
 
 

@@ -21,6 +21,9 @@
     <ClInclude Include="CreateHaffmanTree.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Lz77.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileCompressHaffman.cpp">
