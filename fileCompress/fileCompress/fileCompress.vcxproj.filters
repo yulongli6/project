@@ -24,9 +24,24 @@
     <ClInclude Include="Lz77.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="HashTable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileCompressHaffman.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lz77.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
