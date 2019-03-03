@@ -1,0 +1,4 @@
+./temp_files/tem_1551540458.1.cpp: In function ‘int main()’:
+./temp_files/tem_1551540458.1.cpp:5:8: error: ‘o’ was not declared in this scope
+ return o;
+        ^
