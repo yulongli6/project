@@ -168,7 +168,6 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 	fch.CompressFile(pIn, pOut, info);
 
 	remove(Fileofpath.c_str());
-	return;
 }
 
 
