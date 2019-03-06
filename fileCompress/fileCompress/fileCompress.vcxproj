@@ -57,6 +57,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,12 +79,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
     <ClInclude Include="CreateHaffmanTree.hpp" />
     <ClInclude Include="FileCompressHaffman.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="Lz77.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileCompressHaffman.cpp" />
+    <ClCompile Include="HashTable.cpp" />
+    <ClCompile Include="Lz77.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -31,9 +31,8 @@ class FileCompressHaffman
 {
 public:
 	void CompressHaffman(const string& Fileofpath);
-	void UNCompressHaffman(const string& Fileofpath);
+	string UNCompressHaffman(const string& Fileofpath);
 	void CompressFile(FILE* pIn, FILE* pOut, std::vector<CharInfo>& info);
 private:
 	void GetHaffmanCode(HaffmanTreeNode<CharInfo>* root, vector<CharInfo>& info);
-	void GetLine(FILE* pIn, string& strAceve);
 };

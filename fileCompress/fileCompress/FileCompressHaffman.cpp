@@ -2,6 +2,7 @@
 #include"CreateHaffmanTree.hpp"
 #include<errno.h>
 #include<assert.h>
+#include"Common.h"
 
 
 void FileCompressHaffman::GetHaffmanCode(HaffmanTreeNode<CharInfo>* root, std::vector<CharInfo>& info)
@@ -58,7 +59,6 @@ void FileCompressHaffman::CompressFile(FILE* pIn, FILE* pOut, std::vector<CharIn
 
 			}
 		}
-
 	}
 
 	if (bitCount < 8 && bitCount > 0)
@@ -67,7 +67,8 @@ void FileCompressHaffman::CompressFile(FILE* pIn, FILE* pOut, std::vector<CharIn
 		fputc(ch, pOut);
 	}
 
-
+	fclose(pIn);
+	fclose(pOut);
 
 }
 
@@ -111,8 +112,8 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 	//4. 读取源文件，对源文件中的每个字符使用获取的huffman编码进行改写，
 	//将改写结果写到压缩文件中，直到文件结束。
 
-	string FileName = Fileofpath.substr(0, Fileofpath.find('.'));
-	FileName += ".hzp";
+	string FileName = Fileofpath;
+	FileName += "._gzip";
 
 	FILE* pOut = fopen(FileName.c_str(), "wb");
 	if (nullptr == pOut)
@@ -124,9 +125,9 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 	//----------------------压缩文件头部----------------------------
 
 	//写入源文件的后缀信息(.txt)和换行
-	std::string fileName = Fileofpath.substr(Fileofpath.rfind('.'));
+	/*std::string fileName = Fileofpath.substr(Fileofpath.rfind('.'));
 	fwrite(fileName.c_str(), 1, fileName.size(), pOut);
-	fputc('\n', pOut);
+	fputc('\n', pOut);*/
 
 	//统计源文件字符的种类
 	int count = 0;
@@ -166,20 +167,18 @@ void FileCompressHaffman::CompressHaffman(const std::string& Fileofpath)
 	FileCompressHaffman fch;
 	fch.CompressFile(pIn, pOut, info);
 
-	fclose(pIn);
-	fclose(pOut);
-
+	remove(Fileofpath.c_str());
 }
 
 
-void FileCompressHaffman::UNCompressHaffman(const std::string& Fileofpath)
+string FileCompressHaffman::UNCompressHaffman(const std::string& Fileofpath)
 {
 	//检测文件的后缀
 	std::string strPosFix = Fileofpath.substr(Fileofpath.rfind('.'));
-	if (".hzp" != strPosFix)
+	if ("._gzip" != strPosFix)
 	{
 		cout << "压缩文件格式有问题" << endl;
-		return;
+		return "";
 	}
 
 	//获取解压缩的信息
@@ -187,13 +186,13 @@ void FileCompressHaffman::UNCompressHaffman(const std::string& Fileofpath)
 	if (nullptr == pIn)
 	{
 		cout << "打开文件失败" << endl;
-		return;
+		return "";
 	}
 
 
 	//获取源文件后缀
-	strPosFix = "";
-	GetLine(pIn, strPosFix);
+	/*strPosFix = "";
+	GetLine(pIn, strPosFix);*/
 
 	string strLine;
 	GetLine(pIn, strLine);
@@ -223,8 +222,7 @@ void FileCompressHaffman::UNCompressHaffman(const std::string& Fileofpath)
 	hf.GetHaffmanTree(info);
 
 	//解压缩
-	string strUNComFile = "2";
-	strUNComFile += strPosFix;
+	string strUNComFile = Fileofpath.substr(0, Fileofpath.find('.'));
 	FILE* pOut = fopen(strUNComFile.c_str(), "wb");
 	assert(pOut);
 
@@ -264,22 +262,8 @@ void FileCompressHaffman::UNCompressHaffman(const std::string& Fileofpath)
 
 	fclose(pIn);
 	fclose(pOut);
+
+	return strUNComFile;
 }
 
-void FileCompressHaffman::GetLine(FILE* pIn, std::string& strAceve)
-{
-	while (!feof(pIn))
-	{
-		char ch = fgetc(pIn);
-		if ('\n' == ch)
-			return;
-		strAceve += ch;
-	}
-}
 
-int main()
-{
-	FileCompressHaffman hf;
-	hf.CompressHaffman("1.cpp");
-	hf.UNCompressHaffman("1.hzp");
-}
