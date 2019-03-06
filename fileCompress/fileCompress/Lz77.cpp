@@ -75,7 +75,7 @@ std::string Lz77::CompressFile(const std::string& fileNamePath)
 
 		USH curMatchDist = 0;
 		UCH curMatchLen = 0;
-		if (matchHead && _lookAhead > MIN_LOOKAHEAD)
+		if (-1 != matchHead && _lookAhead > MIN_LOOKAHEAD)
 		{
 			curMatchLen = maxLongMatch(matchHead, curMatchDist);
 		}

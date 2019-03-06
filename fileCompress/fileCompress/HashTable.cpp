@@ -12,7 +12,7 @@ HashTable::HashTable(size_t size)
     , _head(_prev + size)
     , _hashSize(size * 2)
 {
-	memset(_head, 0, sizeof(USH)* size);
+	memset(_head,  -1, sizeof(USH)* size);
 }
 
 
