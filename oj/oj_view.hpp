@@ -33,7 +33,7 @@ public:
         tp1 = ctemplate::Template::GetTemplate(
                     "./template/all_questions.html",
                     ctemplate::DO_NOT_STRIP);
-        tp1->Expand(html, &dict);
+        tp1->Expand(&html, &dict);
     }
 
 
@@ -50,6 +50,6 @@ public:
         tp1 = ctemplate::Template::GetTemplate(
                     "./template/question.html",
                     ctemplate::DO_NOT_STRIP);
-        tp1->Expand(html, &dict);
+        tp1->Expand(&html, &dict);
     }
 };
