@@ -63,7 +63,7 @@ public:
             q.dir = tokens[3];
             FileUtil::Read(q.dir + "/desc.txt", q.desc);
             FileUtil::Read(q.dir + "/header.cpp", q.header_cpp);
-            FileUtil::Read(q.dir + "/tail_cpp", q.tail_cpp);
+            FileUtil::Read(q.dir + "/tail.cpp", q.tail_cpp);
             //[]如果key不存在，就创建新的键值；如果key存在，
             //就查找对应的value
             _model[q.id] = q;

@@ -23,7 +23,7 @@ void file_UNcompress(const std::string& filePath)
 
 int main()
 {
-	fileCompress("814888piCEgQ.mp4");
-	//file_UNcompress("814888piCEgQ._gzip");
+	//fileCompress("IMG_9500À¶.jpg");
+	file_UNcompress("IMG_9500À¶._gzip");
 	return 0;
 }

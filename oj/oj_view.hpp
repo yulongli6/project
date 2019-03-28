@@ -52,4 +52,19 @@ public:
                     ctemplate::DO_NOT_STRIP);
         tp1->Expand(&html, &dict);
     }
+
+
+    static void RenderResult(const std::string& str_stdout,
+                             const std::string& reason, std::string& html)
+    {
+        ctemplate::TemplateDictionary dict("result");
+        dict.SetValue("stdout", str_stdout);
+        dict.SetValue("reason",reason);
+
+        ctemplate::Template* tp1;
+        tp1 = ctemplate::Template::GetTemplate(
+                    "./template/result.html",
+                    ctemplate::DO_NOT_STRIP);
+        tp1->Expand(&html, &dict);
+    }
 };

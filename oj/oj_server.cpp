@@ -37,7 +37,7 @@ int main()
                OjView::RenderQuestion(question, html);
                resp.set_content(html, "text/html");
                });
-    /*server.Post(R"(/compile/(/d+))", [&model](const Request& req, 
+    server.Post(R"(/compile/(\d+))", [&model](const Request& req, 
                                Response& resp){
                 //1.先根据 ID 获取题目信息
                Question question;
@@ -58,9 +58,10 @@ int main()
 
                //5.根据编译结果构造最终网页
                std::string html;
-               OjView::RebderResult(resp_json["stdout"].asString(), 
-                                    resp_json["reason"].asString());
-                });*/
+               OjView::RenderResult(resp_json["stdout"].asString(),
+                                    resp_json["reason"].asString(), html);
+               resp.set_content(html, "text/html");
+                });
     server.set_base_dir("./wwwroot");
     server.listen("0.0.0.0", 9092);
     return 0;
